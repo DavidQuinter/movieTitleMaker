@@ -1,0 +1,8 @@
+<button 
+  [class]="buttonClasses" 
+  (click)="handleClick()"
+  [type]="buttonType || 'button'"
+>
+    <span *ngIf="iconName()" class="material-symbols-outlined">{{ iconName() }}</span>
+    {{ labelText() }}
+</button>

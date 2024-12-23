@@ -1,0 +1,48 @@
+.tools-bar-container{
+    display:flex ;
+    gap: 12px;
+}
+.create-tools-container{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.fonts-tools{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.edit-tools-container{
+    display: flex;
+    gap: 6px;
+}
+.edit-buttons{
+    display: grid;
+    gap: 6px;
+    grid-template-columns: repeat(3, 1fr);
+}
+.edit-inputs{
+    display: grid;
+    gap: 6px;
+    grid-template-columns: repeat(5, 1fr);
+}
+@media screen and (min-width: 1024px) {
+    .tools-bar-container{
+        flex-direction: column;
+    }
+    .fonts-tools{
+
+    }
+    .create-tools-container{
+        flex-direction:row;
+        gap: 6px;
+    }
+    .edit-tools-container{
+        flex-direction: column;
+    }
+    .edit-inputs{
+        display: grid;
+        gap: 6px;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

@@ -1,0 +1,57 @@
+.btn {
+    padding: 3px 12px;
+    border-radius: 4px;
+    display: flex;
+    gap: 4px;
+    font-family: "Noto Sans";
+    font-size: 12pt;
+    font-weight: 500;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--color-green-2);
+    color: var(--color-white);
+    transition: background-color .4s ease-in-out, color .3s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-green-1);
+}
+
+.btn-primary:active,
+.btn-primary.active {
+    background-color: var(--color-green-3);
+}
+
+
+.btn-secondary {
+    background-color: var(--color-white);
+    border: solid 2px var(--color-green-2);
+    color: var(--color-green-2);
+    transition: background-color .4s ease-in-out, color .3s ease-in-out;
+
+}
+.btn-secondary:active,
+.btn-secondary.active,
+.btn-secondary:hover {
+    background-color: var(--color-green-1);
+    color: var(--color-white);
+}
+
+.btn-terceary {
+    background-color: var(--color-gray-0);
+    color: var(--color-gray-2);
+    transition: background-color .4s ease-in-out, color .3s ease-in-out;
+
+}
+
+.btn-terceary:active,
+.btn-terceary.active,
+.btn-terceary:hover {
+    background-color: var(--color-gray-2);
+    color: var(--color-white);
+}
