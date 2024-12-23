@@ -1,88 +1,76 @@
-<form class="form-container" (ngSubmit)="generatePoster()">
-    <div class="selector-img-container">
-        <label for="poster-image-input" class="btn btn-secondary btn-file">Select the poster image</label>
-        <input type="file" 
-               id="poster-image-input" 
-               name="posterImage" 
-               accept="image/*" 
-               (change)="onSelectImage($event)"
-               required>
-        <div class="img-control">
-            <ng-container *ngIf="url !== 'assets/placeholder.jpg'; else noImage">
-                <img [src]="url" alt="Poster">
-            </ng-container>
-            <ng-template #noImage>
-                <div class="">No image has been selected</div>
-            </ng-template>
-        </div>
-    </div>
-
-    <div class="file-upload-section">
-        <p>Add movie details</p>
-        <div>
-            <label>Add manually</label>
-            <div class="switch">
-                <input type="checkbox" 
-                       id="toggle" 
-                       [(ngModel)]="isManualInput" 
-                       name="isManualInput">
-                <label class="slider round" for="toggle"></label>
-            </div>
-        </div>
-        
-        <div class="files-form" *ngIf="!isManualInput">
-            <label>Add files</label>
-            <label for="additional-files-input" class="btn btn-secondary btn-file">Add file</label>
-            <input 
-                type="file" 
-                id="additional-files-input"
-                name="additionalFiles" 
-                accept="image/*"
-                (change)="onFileSelect($event)"
-                multiple>
-            <div class="file-container">
-                <ng-container *ngIf="selectedFiles.length > 0; else noFiles">
-                    <ul>
-                        <li *ngFor="let file of selectedFiles">{{ file.name }}</li>
-                    </ul>
+<div class="form-main-container">
+    <form class="form-container" (ngSubmit)="generatePoster()" [ngClass]="{'hidden': !showForm}">
+        <div class="selector-img-container">
+            <label for="poster-image-input" class="btn btn-secondary btn-file">Select the poster image</label>
+            <input type="file" id="poster-image-input" name="posterImage" accept="image/*"
+                (change)="onSelectImage($event)" required>
+            <div class="img-control">
+                <ng-container *ngIf="url !== 'assets/placeholder.jpg'; else noImage">
+                    <img [src]="url" alt="Poster">
                 </ng-container>
-                <ng-template #noFiles>
-                    <p class="no-files-text">No files have been selected</p>
+                <ng-template #noImage>
+                    <div class="">No image has been selected</div>
                 </ng-template>
             </div>
-            <app-button-component 
-                [label]="'Get data'"
-                (click)="uploadFilesAndGetData()">
-            </app-button-component>
         </div>
-    </div>
 
-    <!-- Formulario principal -->
-    <div [class.disabled]="!isManualInput && !hasLoadedData">
-        <div class="input-container">
-            <label>Movie Title</label>
-            <input class="form-input" type="text" [(ngModel)]="filmDetails.movieTitle" name="movieTitle">
+        <div class="file-upload-section">
+            <p>Add movie details</p>
+            <div>
+                <label>Add manually</label>
+                <div class="switch">
+                    <input type="checkbox" id="toggle" [(ngModel)]="isManualInput" name="isManualInput">
+                    <label class="slider round" for="toggle"></label>
+                </div>
+            </div>
+
+            <div class="files-form" *ngIf="!isManualInput">
+                <label>Add files</label>
+                <label for="additional-files-input" class="btn btn-secondary btn-file">Add file</label>
+                <input type="file" id="additional-files-input" name="additionalFiles" accept="image/*"
+                    (change)="onFileSelect($event)" multiple>
+                <div class="file-container">
+                    <ng-container *ngIf="selectedFiles.length > 0; else noFiles">
+                        <ul>
+                            <li *ngFor="let file of selectedFiles">{{ file.name }}</li>
+                        </ul>
+                    </ng-container>
+                    <ng-template #noFiles>
+                        <p class="no-files-text">No files have been selected</p>
+                    </ng-template>
+                </div>
+                <app-button-component [label]="'Get data'" (click)="uploadFilesAndGetData()">
+                </app-button-component>
+            </div>
         </div>
-        <div class="input-container">
-            <label>Director</label>
-            <input class="form-input" type="text" [(ngModel)]="filmDetails.director" name="director">
+
+        <!-- Formulario principal -->
+        <div class="tags-form" [class.disabled]="!isManualInput && !hasLoadedData">
+            <div class="input-container">
+                <label>Movie Title</label>
+                <input class="form-input" type="text" [(ngModel)]="filmDetails.movieTitle" name="movieTitle">
+            </div>
+            <div class="input-container">
+                <label>Director</label>
+                <input class="form-input" type="text" [(ngModel)]="filmDetails.director" name="director">
+            </div>
+            <div class="input-container">
+                <label>Producer</label>
+                <input class="form-input" type="text" [(ngModel)]="filmDetails.producer" name="producer">
+            </div>
+            <div class="input-container">
+                <label>Music Composer</label>
+                <input class="form-input" type="text" [(ngModel)]="filmDetails.musiComposer" name="musiComposer">
+            </div>
+            <div class="input-container">
+                <label>Casting</label>
+                <textarea class="form-input" [(ngModel)]="filmDetails.casting" name="casting"></textarea>
+            </div>
+            <div class="input-container">
+                <label>Release Date</label>
+                <input class="form-input" type="text" [(ngModel)]="filmDetails.releaseDate" name="releaseDate">
+            </div>
+            <app-button-component [buttonType]="'submit'" [label]="'Generate Poster'"></app-button-component>
         </div>
-        <div class="input-container">
-            <label>Producer</label>
-            <input class="form-input" type="text" [(ngModel)]="filmDetails.producer" name="producer">
-        </div>
-        <div class="input-container">
-            <label>Music Composer</label>
-            <input class="form-input" type="text" [(ngModel)]="filmDetails.musiComposer" name="musiComposer">
-        </div>
-        <div class="input-container">
-            <label>Casting</label>
-            <textarea class="form-input" [(ngModel)]="filmDetails.casting" name="casting"></textarea>
-        </div>
-        <div class="input-container">
-            <label>Release Date</label>
-            <input class="form-input" type="text" [(ngModel)]="filmDetails.releaseDate" name="releaseDate">
-        </div>
-        <app-button-component [label]="'Generate Poster'"></app-button-component>
-    </div>
-</form>
+    </form>
+</div>

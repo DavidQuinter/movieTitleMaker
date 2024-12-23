@@ -9,28 +9,27 @@
     <div class="edit-tools-container">
         <div class="fonts-tools">
             <div class="font-select-container">
-                <select 
-                    [disabled]="!fontsLoaded"
-                    (change)="onFontChange($any($event.target).value)"
+                <select [disabled]="!fontsLoaded" (change)="onFontChange($any($event.target).value)"
                     class="font-select">
                     <option value="" disabled>Select a font</option>
                     <option value="Arial">Arial</option>
                     @for (font of fontsApi; track font.family) {
-                        <option [value]="font.family" [style.font-family]="font.family">
-                            {{font.family}}
-                        </option>
+                    <option [value]="font.family" [style.font-family]="font.family">
+                        {{font.family}}
+                    </option>
                     }
                 </select>
             </div>
-            <div class="font-size-container">
-                <input 
-                    type="number" 
-                    [value]="fontSize"
-                    (input)="onFontSizeChange($event)"
-                    min="8"
-                    max="72"
-                    class="font-size-input"
-                    placeholder="Font size">
+            <div class="selectors-fonts-style">
+                <div class="font-size-container">
+                    <input type="number" [value]="fontSize" (input)="onFontSizeChange($event)" min="8" max="72"
+                        class="font-size-input" placeholder="Font size">
+                </div>
+                <div class="color-picker-container">
+                    <span>color : </span>
+                    <input type="color" [value]="selectedColor" (input)="onColorChange($event)" class="color-picker"
+                        title="Choose text color">
+                </div>
             </div>
         </div>
         <div class="edit-buttons">
@@ -48,6 +47,15 @@
                 [classType]="'btn-terceary'">
             </app-button-component>
             }
+        </div>
+    </div>
+    <div class="export-tools">
+        <label>Export as:</label>
+        <div class="tools-group">
+            <button *ngFor="let tool of getToolsByGroup('export')" class="btn btn-primary" (click)="executeAction(tool)"
+                [title]="tool.tooltip">
+                <span class="button-label">{{ tool.label }}</span>
+            </button>
         </div>
     </div>
 </div>

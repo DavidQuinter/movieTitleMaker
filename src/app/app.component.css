@@ -12,16 +12,10 @@
     background-color: var(--color-gr-2);
     border-radius: 8px;
 }
-.panel-assets-container{
-    grid-area: 2/1/9/4;
-    margin:0 12px;
-    padding: 12px;
-    z-index: 10;
-}
+
 .design-tools-bar{
     grid-area: 2 / 10 / 9 / 12;
     place-self: center;
-
     height: fit-content;
     padding: 12px;
     z-index: 10;
@@ -49,16 +43,19 @@
 
 
   .form-container{
-    display: none;
-    grid-area: 2/3/9/10;
+    grid-area: 1/1/10/13;
     place-self: center;
-    background-color: var(--color-white);
+    background-color: var(--color-green-3);
     overflow: hidden;
+    width: 100vw;
+    height: 100vh;
     padding: 16px;
     border-radius: 8px;
     overflow-x: hidden;
     padding-right: 12px;
-
+    z-index: 15;
+    display: grid;
+    place-content: center;
   }
 
   @media screen and (max-width: 1024px) {
@@ -68,6 +65,7 @@
     .design-tools-bar{
         grid-area: 8/1/10/end;
     }
+    
 }
 
 
@@ -79,5 +77,9 @@
                 grid-area: 1 / 1 / 9 / 12;
         place-self: center;
         z-index: 0;
+    }
+    .design-tools-bar{
+        width: unset;
+        width: 90vw;
     }
 }

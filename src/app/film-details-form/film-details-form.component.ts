@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button-component/button-component.component';
 import { HttpClient } from '@angular/common/http';
+import { CanvasService } from '../canva-service/canva-service.service';
 
 interface UploadedFile {
   id: number,
@@ -34,8 +35,12 @@ export class FilmDetailsFormComponent implements OnInit {
   uploadedFiles: UploadedFile[] = [];
   isManualInput: boolean = false;
   hasLoadedData: boolean = false;
-  
-  constructor(private http: HttpClient) { }
+  showForm: boolean = true;
+
+  constructor(
+    private http: HttpClient,
+    private canvasService: CanvasService
+  ) { }
 
   ngOnInit(): void { }
 
@@ -44,7 +49,7 @@ export class FilmDetailsFormComponent implements OnInit {
     if (input.files && input.files[0]) {
       const file = input.files[0];
       const reader = new FileReader();
-      
+
       reader.onload = (e) => {
         this.url = e.target?.result || null;
       };
@@ -65,7 +70,7 @@ export class FilmDetailsFormComponent implements OnInit {
       alert('Please select files first');
       return;
     }
-    
+
     const formData = new FormData();
     this.selectedFiles.forEach(file => {
       formData.append('files', file);
@@ -77,7 +82,7 @@ export class FilmDetailsFormComponent implements OnInit {
           console.log('Upload successful', response);
           this.uploadedFiles = response;
           this.selectedFiles = [];
-          
+
 
           this.updateFormWithReceivedData(response);
         },
@@ -98,11 +103,39 @@ export class FilmDetailsFormComponent implements OnInit {
       casting: data.casting || '',
       releaseDate: data.releaseDate || '',
     };
-    
+
     this.hasLoadedData = true;
   }
 
-  generatePoster() {
-    console.log('Generating poster with details:', this.filmDetails);
+  async generatePoster() {
+
+    if (this.url === "assets/placeholder.jpg") {
+      alert('Please select a poster image first');
+      return;
+    }
+
+    try {
+
+      if (typeof this.url === 'string') {
+
+        await this.canvasService.addPoster(this.url);
+
+
+        Object.entries(this.filmDetails).forEach(([key, value]) => {
+          if (value && typeof value === 'string' && value.trim() !== '') {
+            this.canvasService.addText(key, value);
+          }
+        });
+
+
+        this.canvasService.hideForm();
+      } else {
+        throw new Error('Invalid image URL format');
+      }
+
+    } catch (error) {
+      console.error('Error generating poster:', error);
+      alert('Error generating poster. Please try again.');
+    }
   }
 }

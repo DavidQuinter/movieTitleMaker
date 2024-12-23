@@ -1,6 +1,8 @@
 .tools-bar-container{
     display:flex ;
     gap: 12px;
+    width: 100%;
+    overflow-x: scroll;
 }
 .create-tools-container{
     display: flex;
@@ -26,6 +28,37 @@
     gap: 6px;
     grid-template-columns: repeat(5, 1fr);
 }
+.tools-group {
+    display: flex;
+    gap: 6px;
+  }
+  
+.font-size-input{
+    width: 40px;
+    border-radius: 4px;
+    border-color: var(--color-gray-0) ;
+    background-color: var(--color-gray-0);
+}
+  .font-select{
+    background-color: var(--color-gray-0);
+    border-radius: 4px;
+    border-color: var(--color-gray-0) ;
+    max-width: 150px;
+  }
+  .button-label {
+    font-size: 11pt;
+  }
+  .color-picker{
+    width: 30px;
+  }
+  .material-icons {
+    font-size: 20px;
+  }
+  .selectors-fonts-style{
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
 @media screen and (min-width: 1024px) {
     .tools-bar-container{
         flex-direction: column;

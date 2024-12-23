@@ -22,13 +22,20 @@ interface GoogleFontResponse {
   kind: string;
   items: GoogleFont[];
 }
-
+interface FilmDetails {
+  movieTitle: string;
+  director: string;
+  producer: string;
+  musiComposer: string;
+  casting: string;
+  releaseDate: string;
+}
 @Component({
   selector: 'app-design-tools-bar',
   standalone: true,
   imports: [CommonModule, ButtonComponent, HttpClientModule],
   templateUrl: './design-tools-bar.component.html',
-  styleUrl: './design-tools-bar.component.css'
+  styleUrls: ['./design-tools-bar.component.css', '../button-component/button-component.component.css']
 })
 export class DesignToolsBarComponent implements OnInit {
 
@@ -39,6 +46,7 @@ export class DesignToolsBarComponent implements OnInit {
   selectedFont: string = 'Arial';
   fontSize: number = 12;
   loadedFonts: Set<string> = new Set();
+  selectedColor: string = '#000000';
 
   httpClient = inject(HttpClient);
   tools: ToolButton[] = [];
@@ -102,7 +110,8 @@ export class DesignToolsBarComponent implements OnInit {
       ...this.getCreationTools(),
       ...this.getTextEditingTools(),
       ...this.getFormattingTools(),
-      ...this.getPositioningTools()
+      ...this.getPositioningTools(),
+      ...this.getExportTools()
     ];
   }
 
@@ -126,7 +135,13 @@ export class DesignToolsBarComponent implements OnInit {
   }
 
   private getTextEditingTools(): ToolButton[] {
-    return [];
+    return [{
+      label: '',
+      icon: 'format_color_text',
+      action: () => { }, // Esta acción será manejada por el input de color
+      group: 'text-editing',
+      tooltip: 'Text color'
+    }];
   }
 
   onFontChange(value: string) {
@@ -202,5 +217,29 @@ export class DesignToolsBarComponent implements OnInit {
       console.error(`Error executing action for ${tool.label}:`, error);
 
     }
+  }
+
+  onColorChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.selectedColor = input.value;
+    this.canvasService.changeTextColor(this.selectedColor);
+  }
+  private getExportTools(): ToolButton[] {
+    return [
+      {
+        label: 'PNG',
+        icon: 'download',
+        action: () => this.canvasService.exportCanvas('png'),
+        group: 'export',
+        tooltip: 'Export as PNG'
+      },
+      {
+        label: 'JPEG',
+        icon: 'download',
+        action: () => this.canvasService.exportCanvas('jpeg'),
+        group: 'export',
+        tooltip: 'Export as JPEG'
+      }
+    ];
   }
 }

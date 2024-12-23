@@ -127,3 +127,32 @@ max-width: 400px;
 .no-files-text{
     text-align: center;
 }
+.tags-form{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.hidden {
+    display: none;
+    position: absolute;
+    z-index: 0;
+  }
+
+  .form-container {
+    transition: opacity 0.3s ease-out;
+    opacity: 1;
+  }
+  
+  .form-container.hidden {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .form-main-container{
+    max-width: 500px;
+    background-color: var(--color-white);
+    padding: 12px;
+    border-radius:4px ;
+
+  }
