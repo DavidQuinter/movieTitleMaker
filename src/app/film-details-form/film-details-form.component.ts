@@ -76,7 +76,7 @@ export class FilmDetailsFormComponent implements OnInit {
       formData.append('files', file);
     });
 
-    this.http.post<any>('http://localhost:3000/random-movie', formData)
+    this.http.post<any>('https://back-prueba-production-f09b.up.railway.app/random-movie', formData)
       .subscribe({
         next: (response) => {
           console.log('Upload successful', response);
