@@ -3,7 +3,7 @@
     <app-loading-logo *ngIf="loadingService.isLoading$ | async"></app-loading-logo>
     <div [class.hidden]="loadingService.isLoading$ | async">
         <div class="app-layout">
-            <app-film-details-form *ngIf="showForm" class="form-container"></app-film-details-form>
+            <app-film-details-form *ngIf="showForm" [@fadeOut] [class.fade-panel]="!showForm"  class="form-container"></app-film-details-form>
             <app-canva-component class="canvas-wrapper canva-panel"></app-canva-component>
             <app-design-tools-bar class="design-tools-bar"></app-design-tools-bar>
         </div>

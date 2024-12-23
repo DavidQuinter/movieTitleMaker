@@ -12,7 +12,14 @@
     background-color: var(--color-gr-2);
     border-radius: 8px;
 }
-
+.fade-out {
+    animation: fadeOut 0.3s ease-out;
+  }
+  
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
 .design-tools-bar{
     grid-area: 2 / 10 / 9 / 12;
     place-self: center;

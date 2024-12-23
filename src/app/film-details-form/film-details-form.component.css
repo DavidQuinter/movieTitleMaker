@@ -132,11 +132,7 @@ max-width: 400px;
     flex-direction: column;
     gap: 6px;
 }
-.hidden {
-    display: none;
-    position: absolute;
-    z-index: 0;
-  }
+
 
   .form-container {
     transition: opacity 0.3s ease-out;

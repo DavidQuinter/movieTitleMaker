@@ -16,11 +16,11 @@ export class CanvasService {
   public categories = {
     movieTitle: {
       fontFamily: 'Arial',
-      fontSize: 25,
+      fontSize: 50,
       fontWeight: 'bold',
       fill: '#000',
       left: 100,
-      top: 100,
+      top: 0
     },
     director: {
       fontFamily: 'Arial',
